@@ -10,12 +10,12 @@
 <body>
 	
 	<ul>
-		</li><a href="principal.jsp">Principal</p></li>
-		<li><a href="sobreNosotros.jsp">Sobre nosotros</a></li>
+		</li><a href="principal.jsp">Tus productos</p></li>
+		<li><a href="sobreNosotros.jsp">Sobre tus productos comunes</a></li>
 		<li>
 		<c:choose>
 				<c:when test="&{email!=null}" >
-				<li>Bien venido a yepaaaaa ${userName}</li>
+				<li>Bien venido a tu lista ${userName}</li>
 				<li><a href="logout">Log out</a></li>
 				</c:when>
 				<c:otherwise>

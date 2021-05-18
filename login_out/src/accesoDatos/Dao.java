@@ -1,14 +1,14 @@
 package accesoDatos;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
-import com.sun.jdi.connect.spi.Connection;
-
-import entidades.Usuarios;
+import modelo.Usuarios;
 
 public class Dao {
 	private static final String URL = "jdbc:sqlite:consultaveterinaria.sqlite3?date_string_format=yyyy-MM-dd";
@@ -26,7 +26,7 @@ public class Dao {
 	// Borrar un registro cuyo id sea uno concreto
 	private static final String SQL_DELETE = "DELETE FROM usuarios WHERE id=?";
 
-	public static ArrayList<Usuarios> obtenerTodas() {
+	public static ArrayList<Usuarios> obtenerTodas() throws AccesoDatosException {
 		try (Connection con = obtenerConexion();
 				PreparedStatement ps = con.prepareStatement(SQL_SELECT);
 				ResultSet rs = ps.executeQuery()) {
@@ -43,7 +43,8 @@ public class Dao {
 		}
 	}
 	
-	public static Usuarios obtenerPorId(Integer id) {
+	@SuppressWarnings({ "null", "unchecked" })
+	public static Usuarios obtenerPorId(Integer id) throws AccesoDatosException {
 		try (Connection con = obtenerConexion();
 				PreparedStatement ps = con.prepareStatement(SQL_SELECT_ID);
 				) {
@@ -54,17 +55,17 @@ public class Dao {
 			Usuarios usuarios = null;
 
 			if (rs.next()) {
-				usuarios.add(new Usuarios(rs.getInt("id"), rs.getString("userName"),
+				((List<Usuarios>) usuarios).add(new Usuarios(rs.getInt("id"), rs.getString("userName"),
 						rs.getString("email"),rs.getString("password")));
 			}
 
-			return mascota;
+			return usuarios;
 		} catch (SQLException e) {
 			throw new AccesoDatosException("No se han podido obtener el registro con id " + id, e);
 		}
 	}
 	
-	public static void insertar(Usuarios usuario) {
+	public static void insertar(Usuarios usuario) throws AccesoDatosException {
 		try (Connection con = obtenerConexion();
 				PreparedStatement ps = con.prepareStatement(SQL_INSERT);
 				) {
@@ -78,7 +79,7 @@ public class Dao {
 		}
 	}
 	
-	public static void modificar(Usuarios usuario) {
+	public static void modificar(Usuarios usuario) throws AccesoDatosException {
 		try (Connection con = obtenerConexion();
 				PreparedStatement ps = con.prepareStatement(SQL_UPDATE);
 				) {
@@ -92,7 +93,7 @@ public class Dao {
 		}
 	}
 	
-	public static void borrar(Integer id) {
+	public static void borrar(Integer id) throws AccesoDatosException {
 		try (Connection con = obtenerConexion();
 				PreparedStatement ps = con.prepareStatement(SQL_DELETE);
 				) {

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<h1>BIEN VENIDO A YEPAAAAAA</h1>
+<h1>BIEN VENIDO A TU LISTA DE LA COMPRA</h1>
 <form action="login" method="post">
 	<div>
 		<label for="userName">Introduce tu nombre</label>
