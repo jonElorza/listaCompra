@@ -11,7 +11,7 @@ import java.util.List;
 import modelo.Usuarios;
 
 public class Dao {
-	private static final String URL = "jdbc:sqlite:consultaveterinaria.sqlite3?date_string_format=yyyy-MM-dd";
+	private static final String URL = "jdbc:sqlite:basededatos";
 	private static final String USUARIO_BDD = "";
 	private static final String PASSWORD_BDD = "";
 
